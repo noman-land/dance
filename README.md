@@ -4,6 +4,20 @@ A very unfinished pico-8 game about dancing.
 
 ![dance demo](dance-demo.gif)
 
+## Development
+
+Keep the project folder where you keep all your coding projects, then symlink it to the pico-8 carts folder. On a Mac this would be something similar to:
+
+```bash
+ln -s $HOME/dev/dance $HOME/Library/Application\ Support/pico-8/carts
+```
+
+In the pico8 terminal you can load the game by running:
+
+```bash
+load dance/dance.p8
+```
+
 ## Deployment
 
 1. Make sure to set a shell variable for `$PICO8_PATH`. On a Mac, something similar to the following can be added to your `.bashrc` or `.zshrc` or whatever shell you use.
