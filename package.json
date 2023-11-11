@@ -1,0 +1,15 @@
+{
+  "name": "dance",
+  "version": "0.1.0",
+  "description": "A pico-8 game about dancing.",
+  "main": "index.js",
+  "scripts": {
+    "export": "$PICO8_PATH dance.p8 -export index.html"
+  },
+  "keywords": [
+    "pico-8",
+    "pico8"
+  ],
+  "author": "Noman",
+  "license": "MIT"
+}
