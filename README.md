@@ -6,13 +6,13 @@ A very unfinished pico-8 game about dancing.
 
 ## Development
 
-Keep the project folder where you keep all your coding projects, then symlink it to the pico-8 carts folder. On a Mac this would be something similar to:
+Keep this project folder where you keep all your coding projects, then symlink it to the pico-8 carts folder. On a Mac this would be something similar to:
 
 ```bash
 ln -s $HOME/dev/dance $HOME/Library/Application\ Support/pico-8/carts
 ```
 
-In the pico8 terminal you can load the game by running:
+In the pico-8 terminal you can load the game by running:
 
 ```bash
 load dance/dance.p8
