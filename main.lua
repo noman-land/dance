@@ -1,9 +1,7 @@
-neutral = 21
 speed = 6
-complete = false
 
-function butn(t, n)
-	return band(t, n) == n
+function butn(n)
+	return btn() == n
 end
 
 function pressed(s)
@@ -13,90 +11,153 @@ function pressed(s)
 	return true
 end
 
+keymap = {
+	-- ⬅️
+	[1] = 82,
+	-- ➡️
+	[2] = 82,
+	-- ⬆️
+	[4] = 69,
+	-- ⬇️
+	[8] = 101
+}
+
+background = {
+	draw = function()
+		cls(1)
+	end
+}
+
+try_again = {
+	draw = function()
+		print("❎ try again", 4, 119, 12)
+	end
+}
+
+ground = {
+	draw = function()
+		rectfill(0, 68, 127, 70, 3)
+	end
+}
+
+-- silhouete guy
+sil_guy = {
+	x = 0,
+	y = 0,
+	update = function()
+		sil_guy.x = 21 + frame / 10
+		sil_guy.y = 20 + frame / 10
+	end,
+	draw = function()
+		spr(69, sil_guy.x, sil_guy.y, 1, 1)
+	end
+}
+
+dance_guy = {
+	flipped = false,
+	x = 0,
+	y = 0,
+	update = function()
+		dance_guy.flipped = pressed "➡️"
+		dance_guy.x = 64 - 3 - (dance_guy.flipped and 1 or 0)
+		dance_guy.y = 64 - 4
+	end,
+	draw = function()
+		spr(
+			dance_guy.sprs[btn()],
+			dance_guy.x,
+			dance_guy.y,
+			1,
+			1,
+			dance_guy.flipped
+		)
+	end,
+	sprs = {
+		-- neutral
+		[0] = 21,
+		-- ⬅️
+		[1] = 18,
+		-- ➡️
+		[2] = 18,
+		-- ⬆️
+		[4] = 5,
+		-- ⬇️
+		[8] = 37,
+		-- ⬅️⬆️
+		[5] = 2,
+		-- ➡️⬆️
+		[6] = 2,
+		-- ⬅️⬇️
+		[9] = 35,
+		-- ⬅️⬇️
+		[10] = 35,
+		-- ⬇️⬅️➡️
+		[11] = 37,
+		-- ⬆️⬅️➡️
+		[7] = 5,
+		-- ⬅️⬆️⬇️
+		[13] = 18,
+		-- ➡️⬆️⬇️
+		[14] = 18
+	}
+}
+
+reload = {
+	check = function()
+		if (pressed "❎") run()
+	end
+}
+
+complete = {
+	level_won = false,
+	draw = function()
+		local winning_move = butn(4)
+		local moment_of_overlap = flr(sil_guy.y) == dance_guy.y
+		if winning_move and moment_of_overlap then
+			-- flash screen
+			cls(14)
+			complete.level_won = true
+		end
+		if complete.level_won then
+			print('great job!', 20, 40, 14)
+			print('score: 1', 20, 47, 14)
+			return
+		end
+		local is_over = sil_guy.y > dance_guy.y
+		if is_over then
+			print('bad job :(', 70, 40, 8)
+			print('score: 0', 70, 47, 8)
+		end
+	end
+}
+
 function _init()
 	frame = 0
-	dude = {
-		flipped = false,
-		x = 63,
-		y = 63,
-		dir = 0,
-		sprs = {
-			[0] = neutral,
-			-- ⬅️
-			[1] = 18,
-			-- ➡️
-			[2] = 18,
-			-- ⬆️
-			[4] = 5,
-			-- ⬇️
-			[8] = 37,
-			-- ⬅️⬆️
-			[5] = 2,
-			-- ➡️⬆️
-			[6] = 2,
-			-- ⬅️⬇️
-			[9] = 35,
-			-- ⬅️⬇️
-			[10] = 35,
-			-- ⬇️⬅️➡️
-			[11] = 37,
-			-- ⬆️⬅️➡️
-			[7] = 5,
-			-- ⬅️⬆️⬇️
-			[13] = 18,
-			-- ➡️⬆️⬇️
-			[14] = 18
-		}
-	}
 end
 
-function walk()
-	local id = 16
-	if dude.dir == 0 then
-		id = neutral
-	elseif flr(frame / (speed / 2)) % 2 == 0 then
-		id = 32
-	end
-	spr(id, dude.x, dude.y, 1, 1, dude.flipped)
-end
+-- function walk()
+-- 	local id = 16
+-- 	if btn() == 0 then
+-- 		id = dance_guy.spr[0]
+-- 	elseif flr(frame / (speed / 2)) % 2 == 0 then
+-- 		id = 32
+-- 	end
+-- 	spr(id, dance_guy.x, dance_guy.y, 1, 1, dance_guy.flipped)
+-- end
 
 function _update()
 	frame = frame + 1 + speed
-	dude.dir = btn()
-	dude.flipped = butn(dude.dir, 2)
-
-	-- if(butn(dude.dir,1)) dude.x-=1
-	-- if(butn(dude.dir,2)) dude.x+=1
-	-- if(butn(dude.dir,4)) dude.y-=1
-	-- if(butn(dude.dir,8)) dude.y+=1
+	sil_guy.update()
+	dance_guy.update()
+	reload.check()
 end
 
 function _draw()
-	cls(1)
-	-- floor
-	line(0, 68, 127, 68, 3)
-	sframeCoord = 20 + frame / 10
-	danceGuyCoordX = 64 - 3 - (dude.flipped and 1 or 0)
-	danceGuyCoordY = 64 - 4
-	-- flash screen
-	if pressed "⬆️" and flr(sframeCoord) == danceGuyCoordY then
-		cls(14)
-		complete = true
-	end
-	if complete then
-		print('great job!', 20, 40, 14)
-	elseif sframeCoord > danceGuyCoordY then
-		print('bad job :(', 70, 40, 8)
-	end
-	-- silhouete guy
-	spr(69, sframeCoord, sframeCoord, 1, 1)
-	-- dance guy
-	spr(
-		dude.sprs[dude.dir] or neutral,
-		danceGuyCoordX,
-		danceGuyCoordY,
-		1,
-		1,
-		dude.flipped
-	)
+	background.draw()
+	print(btn())
+	sil_guy.draw()
+	ground.draw()
+	dance_guy.draw()
+	complete.draw()
+	try_again.draw()
 end
