@@ -1,4 +1,7 @@
 try_again = {
+  check = function()
+    return pressed_any "❎"
+  end,
   draw = function()
     print("❎ try again", 4, 119, 12)
   end
@@ -6,7 +9,7 @@ try_again = {
 
 reload = {
   check = function()
-    if (pressed_any "❎") run()
+    if (try_again:check()) run()
   end
 }
 
