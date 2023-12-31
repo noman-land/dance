@@ -1,8 +1,8 @@
-function butn(n)
+function pressed_only(n)
   return btn() == n
 end
 
-function pressed(s)
+function pressed_any(s)
   for pos in all(s) do
     if (btn() >> _ENV[pos] & 1 == 0) return
   end

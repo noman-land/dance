@@ -6,14 +6,14 @@ try_again = {
 
 reload = {
   check = function()
-    if (pressed "❎") run()
+    if (pressed_any "❎") run()
   end
 }
 
 complete = {
   level_won = false,
   check = function()
-    local winning_move = butn(4)
+    local winning_move = pressed_only(4)
     local moment_of_overlap = flr(sil_guy.y) == dance_guy.y
     if winning_move and moment_of_overlap then
       -- flash screen

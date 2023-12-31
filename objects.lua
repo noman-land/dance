@@ -22,7 +22,7 @@ dance_guy = {
   x = 0,
   y = 0,
   update = function()
-    dance_guy.flipped = pressed "➡️"
+    dance_guy.flipped = pressed_any "➡️"
     dance_guy.x = 64 - 3 - (dance_guy.flipped and 1 or 0)
     dance_guy.y = 64 - 4
   end,
