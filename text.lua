@@ -23,7 +23,7 @@ complete = {
       -- flash screen
       cls(14)
       self.level_won = true
-      score.score += 1
+      score.value += 1
     end
     self.is_over = sil_guy.pos.y > dance_guy.pos.y
   end,
@@ -37,8 +37,8 @@ complete = {
 }
 
 score = {
-  score = 0,
+  value = 0,
   draw = function(self)
-    print("score: " .. self.score, 2, 2, 9)
+    print("score: " .. self.value, 2, 2, 9)
   end
 }
