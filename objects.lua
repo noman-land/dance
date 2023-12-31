@@ -1,35 +1,44 @@
+background = {
+  draw = function()
+    cls(1)
+  end
+}
+
 ground = {
   draw = function()
     rectfill(0, 68, 127, 70, 3)
   end
 }
 
--- silhouete guy
+-- silhouette guy
 sil_guy = {
-  x = 0,
-  y = 0,
+  winning_move = 4,
+  origin = { x = 21, y = 20 },
+  pos = { x = 0, y = 0 },
+  speed = 1,
   update = function(self)
-    self.x = 21 + frame / 10
-    self.y = 20 + frame / 10
+    self.pos.x = self.origin.x + frame * self.speed
+    self.pos.y = self.origin.y + frame * self.speed
   end,
   draw = function(self)
-    spr(69, self.x, self.y, 1, 1)
+    spr(69, self.pos.x, self.pos.y, 1, 1)
   end
 }
 
 dance_guy = {
   flipped = false,
-  x = 0,
-  y = 64 - 4,
+  origin = { x = 61, y = 60 },
+  pos = { x = 0, y = 0 },
   update = function(self)
     self.flipped = pressed_any "➡️"
-    self.x = 64 - 3 - (self.flipped and 1 or 0)
+    self.pos.x = self.origin.x - (self.flipped and 1 or 0)
+    self.pos.y = self.origin.y
   end,
   draw = function(self)
     spr(
       self.sprs[btn()],
-      self.x,
-      self.y,
+      self.pos.x,
+      self.pos.y,
       1,
       1,
       self.flipped

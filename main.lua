@@ -1,33 +1,13 @@
-speed = 6
-winning_move = 4
-
-keymap = {
-	-- ⬅️
-	[1] = 82,
-	-- ➡️
-	[2] = 82,
-	-- ⬆️
-	[4] = 69,
-	-- ⬇️
-	[8] = 101
-}
-
-background = {
-	draw = function()
-		cls(1)
-	end
-}
-
 function _init()
 	frame = 0
 end
 
-function _update()
-	frame = frame + 1 + speed
+function _update60()
+	frame += 0.5
+	reload:check()
+	complete:check(sil_guy)
 	sil_guy:update()
 	dance_guy:update()
-	complete:check(winning_move)
-	reload:check()
 end
 
 function _draw()

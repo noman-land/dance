@@ -16,5 +16,5 @@ end
 -- 	elseif flr(frame / (speed / 2)) % 2 == 0 then
 -- 		id = 32
 -- 	end
--- 	spr(id, dance_guy.x, dance_guy.y, 1, 1, dance_guy.flipped)
+-- 	spr(id, dance_guy.pos.x, dance_guy.pos.y, 1, 1, dance_guy.flipped)
 -- end
