@@ -39,6 +39,6 @@ complete = {
 score = {
   score = 0,
   draw = function(self)
-    print("score: " .. self.score, 2, 2)
+    print("score: " .. self.score, 2, 2, 9)
   end
 }
