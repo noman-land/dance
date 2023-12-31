@@ -1,4 +1,5 @@
 speed = 6
+winning_move = 4
 
 keymap = {
 	-- ⬅️
@@ -23,17 +24,17 @@ end
 
 function _update()
 	frame = frame + 1 + speed
-	sil_guy.update()
-	dance_guy.update()
-	complete.check()
-	reload.check()
+	sil_guy:update()
+	dance_guy:update()
+	complete:check(winning_move)
+	reload:check()
 end
 
 function _draw()
-	background.draw()
-	sil_guy.draw()
-	ground.draw()
-	dance_guy.draw()
-	complete.draw()
-	try_again.draw()
+	background:draw()
+	sil_guy:draw()
+	ground:draw()
+	dance_guy:draw()
+	complete:draw()
+	try_again:draw()
 end

@@ -8,32 +8,31 @@ ground = {
 sil_guy = {
   x = 0,
   y = 0,
-  update = function()
-    sil_guy.x = 21 + frame / 10
-    sil_guy.y = 20 + frame / 10
+  update = function(self)
+    self.x = 21 + frame / 10
+    self.y = 20 + frame / 10
   end,
-  draw = function()
-    spr(69, sil_guy.x, sil_guy.y, 1, 1)
+  draw = function(self)
+    spr(69, self.x, self.y, 1, 1)
   end
 }
 
 dance_guy = {
   flipped = false,
   x = 0,
-  y = 0,
-  update = function()
-    dance_guy.flipped = pressed_any "➡️"
-    dance_guy.x = 64 - 3 - (dance_guy.flipped and 1 or 0)
-    dance_guy.y = 64 - 4
+  y = 64 - 4,
+  update = function(self)
+    self.flipped = pressed_any "➡️"
+    self.x = 64 - 3 - (self.flipped and 1 or 0)
   end,
-  draw = function()
+  draw = function(self)
     spr(
-      dance_guy.sprs[btn()],
-      dance_guy.x,
-      dance_guy.y,
+      self.sprs[btn()],
+      self.x,
+      self.y,
       1,
       1,
-      dance_guy.flipped
+      self.flipped
     )
   end,
   sprs = {

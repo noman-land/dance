@@ -12,17 +12,17 @@ reload = {
 
 complete = {
   level_won = false,
-  check = function()
-    local winning_move = pressed_only(4)
+  check = function(self, winning_move)
+    local correctly_pressed = pressed_only(winning_move)
     local moment_of_overlap = flr(sil_guy.y) == dance_guy.y
-    if winning_move and moment_of_overlap then
+    if correctly_pressed and moment_of_overlap then
       -- flash screen
       cls(14)
-      complete.level_won = true
+      self.level_won = true
     end
   end,
-  draw = function()
-    if complete.level_won then
+  draw = function(self)
+    if self.level_won then
       print('great job!', 20, 40, 14)
       print('score: 1', 20, 47, 14)
       return
