@@ -110,7 +110,7 @@ reload = {
 
 complete = {
 	level_won = false,
-	draw = function()
+	check = function()
 		local winning_move = butn(4)
 		local moment_of_overlap = flr(sil_guy.y) == dance_guy.y
 		if winning_move and moment_of_overlap then
@@ -118,6 +118,8 @@ complete = {
 			cls(14)
 			complete.level_won = true
 		end
+	end,
+	draw = function()
 		if complete.level_won then
 			print('great job!', 20, 40, 14)
 			print('score: 1', 20, 47, 14)
@@ -149,12 +151,12 @@ function _update()
 	frame = frame + 1 + speed
 	sil_guy.update()
 	dance_guy.update()
+	complete.check()
 	reload.check()
 end
 
 function _draw()
 	background.draw()
-	print(btn())
 	sil_guy.draw()
 	ground.draw()
 	dance_guy.draw()
